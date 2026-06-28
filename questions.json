@@ -1,0 +1,42 @@
+[
+  {
+    "type": "grounded",
+    "question": "What is the key difference between a 'service provider' and a 'medical practitioner who provides abortion services' as defined in this Act?"
+  },
+  {
+    "type": "grounded",
+    "question": "Does the definition of 'patient' include a friend or family member who accompanies someone for emotional support while they are using abortion services?"
+  },
+  {
+    "type": "grounded",
+    "question": "Under this British Columbia Act, what specific actions must occur for an individual's conduct to be classified as 'besetting'?"
+  },
+  {
+    "type": "grounded",
+    "question": "Can an act be considered a 'protest' under this Act if it's done through written means, such as distributing pamphlets?"
+  },
+  {
+    "type": "reasoning",
+    "question": "A person repeatedly stands outside a clinic where abortion services are provided, silently holding a sign that states 'Support Pregnant Women, Not Abortion'. Would this action be considered 'besetting' according to the Act's definition?"
+  },
+  {
+    "type": "reasoning",
+    "question": "If a group is positioned near the entrance of a hospital providing abortion services and hands out flyers that discuss the moral implications of abortion, would their actions constitute 'sidewalk interference' under this legislation?"
+  },
+  {
+    "type": "reasoning",
+    "question": "Maria is in an access zone, waiting for her sister who is inside a facility receiving abortion services. Maria is there solely to offer her sister a ride home afterward, without providing emotional support. Is Maria considered a 'patient' under the Act's definition?"
+  },
+  {
+    "type": "uncertainty",
+    "question": "The definition of 'access zone' refers to sections 5, 6, or 7. How are these specific access zones physically established or delineated under the Act?"
+  },
+  {
+    "type": "uncertainty",
+    "question": "Given that 'abortion services' are defined as 'lawful medical services', what legal framework or provincial regulations determine the 'lawfulness' of these services in British Columbia?"
+  },
+  {
+    "type": "uncertainty",
+    "question": "If someone is informing people about issues related to abortion services outside a facility, is there a clear distinction between that action being categorized as 'protest' versus 'sidewalk interference' without further context from the Act or case law?"
+  }
+]
