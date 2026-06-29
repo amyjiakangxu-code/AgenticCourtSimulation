@@ -15,6 +15,8 @@ import argparse
 import json
 import os
 import sys
+import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import google.generativeai as genai
@@ -150,9 +152,37 @@ def load_done_keys(path):
     return done
 
 
-def generate_for_record(model, rec, n_grounded, n_reasoning, n_uncertainty):
+class RateLimiter:
+    """Thread-safe limiter that spaces request *starts* by a minimum interval.
+
+    Shared across worker threads so concurrent in-flight calls still respect a
+    global requests-per-minute cap (the spacing bounds the request *rate*, while
+    the thread pool hides per-call latency).
+    """
+
+    def __init__(self, rpm):
+        self._interval = 60.0 / rpm if rpm and rpm > 0 else 0.0
+        self._lock = threading.Lock()
+        self._next_allowed = 0.0
+
+    def acquire(self):
+        if not self._interval:
+            return
+        with self._lock:
+            now = time.monotonic()
+            slot = max(now, self._next_allowed)
+            self._next_allowed = slot + self._interval
+        wait = slot - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+
+
+def generate_for_record(model, rec, n_grounded, n_reasoning, n_uncertainty,
+                        limiter=None):
     """Call Gemini for one excerpt and return the parsed list of questions."""
     prompt = build_prompt(rec, n_grounded, n_reasoning, n_uncertainty)
+    if limiter is not None:
+        limiter.acquire()
     response = model.generate_content(
         prompt,
         generation_config={"response_mime_type": "application/json"},
@@ -164,7 +194,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate legal questions via Gemini.")
     parser.add_argument("--input", default=os.path.join(HERE, "legal_corpus.jsonl"),
                         help="Path to the corpus (JSON array or JSONL).")
-    parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model name.")
+    parser.add_argument("--model", default="gemini-3.1-flash-lite", help="Gemini model name.")
     parser.add_argument("--grounded", type=int, default=1)
     parser.add_argument("--reasoning", type=int, default=2)
     parser.add_argument("--uncertainty", type=int, default=1)
@@ -178,7 +208,16 @@ def main():
     parser.add_argument("--resume", action="store_true",
                         help="Append to an existing output file and skip excerpts "
                              "already present in it (instead of overwriting).")
+    parser.add_argument("--rpm", type=float, default=10,
+                        help="Max API requests per minute (default 10). "
+                             "Requests are spaced evenly to stay under this rate.")
+    parser.add_argument("--workers", type=int, default=8,
+                        help="Number of concurrent request threads (default 8). "
+                             "Hides per-call latency so the --rpm budget is "
+                             "actually saturated. Use 1 for sequential.")
     args = parser.parse_args()
+
+    limiter = RateLimiter(args.rpm)
 
     api_key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -191,27 +230,42 @@ def main():
     if args.resume:
         print(f"Resuming: {len(done)} excerpt(s) already in {args.output}", file=sys.stderr)
 
-    processed = 0     # newly generated this run (counts toward --limit)
-    skipped = 0       # already done, skipped via --resume
+    # Select the excerpts to process up front (respecting --resume and --limit).
+    skipped = 0
+    todo = []
+    for rec in iter_statute_records(args.input):
+        if args.resume and record_key(rec) in done:
+            skipped += 1
+            continue
+        if args.limit and len(todo) >= args.limit:
+            break
+        todo.append(rec)
+
+    def label_for(rec, i):
+        return rec.get("citation") or rec.get("title") or rec.get("id") or f"#{i}"
+
+    def work(rec):
+        return generate_for_record(
+            model, rec, args.grounded, args.reasoning, args.uncertainty, limiter
+        )
+
+    processed = 0     # results successfully written this run
     total_q = 0
+    write_lock = threading.Lock()
     # Append when resuming, otherwise overwrite. Flush + fsync after every
     # excerpt so progress survives an interruption (each line = one statute).
     mode = "a" if args.resume else "w"
-    with open(args.output, mode, encoding="utf-8") as out:
-        for rec in iter_statute_records(args.input):
-            if args.resume and record_key(rec) in done:
-                skipped += 1
-                continue
-            if args.limit and processed >= args.limit:
-                break
-            processed += 1
-            label = rec.get("citation") or rec.get("title") or rec.get("id") or f"#{processed}"
+    with open(args.output, mode, encoding="utf-8") as out, \
+            ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
+        futures = {pool.submit(work, rec): (i, rec)
+                   for i, rec in enumerate(todo, start=1)}
+        for fut in as_completed(futures):
+            i, rec = futures[fut]
+            label = label_for(rec, i)
             try:
-                questions = generate_for_record(
-                    model, rec, args.grounded, args.reasoning, args.uncertainty
-                )
+                questions = fut.result()
             except (json.JSONDecodeError, ValueError) as e:
-                print(f"[{processed}] SKIP {label}: could not parse model output ({e})",
+                print(f"[{i}] SKIP {label}: could not parse model output ({e})",
                       file=sys.stderr)
                 continue
             entry = {
@@ -222,11 +276,15 @@ def main():
                 "chunk_index": rec.get("chunk_index"),
                 "questions": questions,
             }
-            out.write(json.dumps(entry, ensure_ascii=False) + "\n")
-            out.flush()
-            os.fsync(out.fileno())
-            total_q += len(questions)
-            print(f"[{processed}] {label}: {len(questions)} questions", file=sys.stderr)
+            line = json.dumps(entry, ensure_ascii=False) + "\n"
+            # Serialize writes so concurrent results never interleave on disk.
+            with write_lock:
+                out.write(line)
+                out.flush()
+                os.fsync(out.fileno())
+                processed += 1
+                total_q += len(questions)
+            print(f"[{i}] {label}: {len(questions)} questions", file=sys.stderr)
 
     msg = f"\nProcessed {processed} statute excerpt(s), {total_q} questions total"
     if args.resume:
