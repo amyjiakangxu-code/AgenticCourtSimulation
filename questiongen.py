@@ -15,6 +15,7 @@ import argparse
 import json
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import google.generativeai as genai
 
@@ -168,7 +169,8 @@ def main():
     parser.add_argument("--reasoning", type=int, default=2)
     parser.add_argument("--uncertainty", type=int, default=1)
     parser.add_argument("--limit", type=int, default=0,
-                        help="Max number of statute excerpts to process (0 = all). "
+                        help="Max number of statute excerpts" \
+                        " to process (0 = all). "
                              "Default 10 to avoid accidental huge/expensive runs.")
     parser.add_argument("--output", default=os.path.join(HERE, "questions.jsonl"),
                         help="Path to write results, one JSON object per line "
