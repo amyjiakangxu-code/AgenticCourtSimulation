@@ -1,1 +1,1 @@
-# Hi this is a agentic court simulation 
+# Hi this is a agentic court simulation
