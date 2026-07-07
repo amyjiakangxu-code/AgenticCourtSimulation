@@ -1,2 +1,7 @@
 /Case in Brief
 sanity_check.json
+
+# Superseded/throwaway LoRA checkpoints (only distill_adapters_best500/ and the
+# fused model in distilled_qwen2.5-1.5b-canadian-law/ are kept in version control)
+/distill_adapters/
+/distill_adapters_smoketest/
