@@ -1,6 +1,13 @@
 /Case in Brief
 sanity_check.json
 venv_mlx/
+EDA/statutes_FED.json.bak
+
+# Cleaned case-law dataset (built by EDA/case_EDA.ipynb) — ~5.4GB each, over
+# GitHub's hard 2GB-per-file limit even with LFS. Regenerate by re-running
+# case_EDA.ipynb against a2aj/canadian-case-law rather than committing these.
+EDA/clean_cases.db
+EDA/clean_cases.jsonl
 
 # Superseded/throwaway LoRA checkpoints (only distill_adapters_best500/ and the
 # fused model in distilled_qwen2.5-1.5b-canadian-law/ are kept in version control)
