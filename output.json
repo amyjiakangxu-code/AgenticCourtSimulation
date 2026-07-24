@@ -1,0 +1,123 @@
+{
+  "act_name": "Canada Elections Act",
+  "questions": [
+    {
+      "id": "ADV-01",
+      "provisions_tested": [
+        "s. 17(1)",
+        "s. 17(2)"
+      ],
+      "provision_quotes": {
+        "s. 17(1)": "During an election period or within 30 days after it, if an emergency, an unusual or unforeseen circumstance or an error makes it necessary, the Chief Electoral Officer may, for the sole purpose of enabling electors to exercise their right to vote or enabling the counting of votes, adapt any provision of this Act and, in particular, may extend the time for doing any act, subject to subsection (2), or may increase the number of election officers or polling stations.",
+        "s. 17(2)": "The Chief Electoral Officer shall not extend the voting hours at an advance polling station or, subject to subsection (3), the voting hours on polling day."
+      },
+      "interpretive_claims": [
+        "The Chief Electoral Officer has the power to adapt provisions of the Act during an election period or within 30 days after it due to an unforeseen circumstance or error.",
+        "The power to adapt is limited by the sole purpose of enabling electors to exercise their right to vote or enabling the counting of votes.",
+        "Subsection 17(2) explicitly prohibits the Chief Electoral Officer from extending voting hours at an advance polling station."
+      ],
+      "scenario": "During a federal general election, severe winter weather strikes Electoral District X on the final day of advance polling, causing a power outage that forces the advance polling station to close four hours early. Several hundred electors are unable to cast their advance votes. The Chief Electoral Officer issues an order extending the voting hours at that specific advance polling station by four hours on the following day to compensate for the lost time.",
+      "question": "During a federal general election, severe winter weather strikes Electoral District X on the final day of advance polling, causing a power outage that forces the advance polling station to close four hours early. Several hundred electors are unable to cast their advance votes. The Chief Electoral Officer issues an order extending the voting hours at that specific advance polling station by four hours on the following day to compensate for the lost time. You represent a candidate challenging this extension. Argue that the Chief Electoral Officer's extension of advance polling hours is ultra vires and invalid, relying on Canada Elections Act. Address the strongest counterargument."
+    },
+    {
+      "id": "ADV-02",
+      "provisions_tested": [
+        "s. 370(1)",
+        "s. 370(2)"
+      ],
+      "provision_quotes": {
+        "s. 370(1)": "No individual shall make a contribution to a registered party, a registered association, a nomination contestant, a candidate or a leadership contestant that comes from money, property or the services of any person or entity that was provided to that individual for that purpose.",
+        "s. 370(2)": "Despite subsection (1), a candidate or a leadership contestant may make a contribution under subsection 367(7) that comes from money provided by way of a loan to the candidate or leadership contestant made in writing by a financial institution as defined in section 2 of the Bank Act at a fair market rate of interest, as long as no security is given for the loan except property of the candidate or leadership contestant, as the case may be."
+      },
+      "interpretive_claims": [
+        "Section 370(1) prohibits individuals from making indirect contributions sourced from money, property, or services provided by another person or entity for that purpose.",
+        "Section 370(2) provides a specific exception allowing candidates and leadership contestants to contribute to their own campaigns using funds obtained via a written loan from a financial institution at fair market interest, provided no external security is given."
+      ],
+      "scenario": "Jane Doe is running as a candidate in a general election. To boost her campaign financing, her wealthy business partner, John Smith, provides her with a personal bank loan of $5,000, which Jane immediately contributes directly to her own official campaign account as a candidate contribution under subsection 367(7). The loan is documented in writing, carries a fair market rate of interest, and is secured only by Jane's own personal automobile. The Commissioner of Canada Elections initiates an inquiry into whether this arrangement constitutes an illegal indirect contribution under section 370.",
+      "question": "Jane Doe is running as a candidate in a general election. To boost her campaign financing, her wealthy business partner, John Smith, provides her with a personal bank loan of $5,000, which Jane immediately contributes directly to her own official campaign account as a candidate contribution under subsection 367(7). The loan is documented in writing, carries a fair market rate of interest, and is secured only by Jane's own personal automobile. The Commissioner of Canada Elections initiates an inquiry into whether this arrangement constitutes an illegal indirect contribution under section 370. You represent Jane Doe. Argue that her contribution is fully compliant with the Canada Elections Act. Address the strongest counterargument."
+    },
+    {
+      "id": "UNC-01",
+      "provisions_tested": [
+        "s. 8(1)",
+        "s. 8(2)",
+        "s. 8(4)"
+      ],
+      "provision_quotes": {
+        "s. 8(1)": "The place of ordinary residence of a person is the place that has always been, or that has been adopted as, his or her dwelling place, and to which the person intends to return when away from it.",
+        "s. 8(2)": "A person can have only one place of ordinary residence and it cannot be lost until another is gained.",
+        "s. 8(4)": "If a person usually sleeps in one place and has their meals or is employed in another place, their place of ordinary residence is where they sleep."
+      },
+      "interpretive_claims": [
+        "A person's place of ordinary residence is determined by their established dwelling place and their intent to return.",
+        "An individual can have only one place of ordinary residence at any given time.",
+        "When a person sleeps in one place and eats or works in another, ordinary residence is determined by where they sleep."
+      ],
+      "scenario": "Arthur accepted a six-month work assignment in Electoral District B starting September 1st. During the work week (Monday through Friday), he rents a small apartment in District B where he sleeps every night. On weekends, he returns to his permanent family home in Electoral District A, where his spouse and children reside, and where he keeps the bulk of his belongings. A federal election is called, and Arthur attempts to register to vote in Electoral District B. The returning officer questions whether Arthur's place of ordinary residence is District A or District B.",
+      "question": "Arthur accepted a six-month work assignment in Electoral District B starting September 1st. During the work week (Monday through Friday), he rents a small apartment in District B where he sleeps every night. On weekends, he returns to his permanent family home in Electoral District A, where his spouse and children reside, and where he keeps the bulk of his belongings. A federal election is called, and Arthur attempts to register to vote in Electoral District B. The returning officer questions whether Arthur's place of ordinary residence is District A or District B. Based strictly on the Canada Elections Act, what additional facts or determinations are legally necessary under sections 8(1), (2), and (4) to definitively establish Arthur's single place of ordinary residence, and what conclusions remain unsupported without them?"
+    },
+    {
+      "id": "UNC-02",
+      "provisions_tested": [
+        "s. 350(1)",
+        "s. 350(4.1)"
+      ],
+      "provision_quotes": {
+        "s. 350(1)": "Subject to section 351.1, a third party shall not incur the following expenses in an aggregate amount of more than $350,000: (a) partisan activity expenses in relation to partisan activities that are carried out during the election period of a general election; (b) election advertising expenses in relation to election advertising messages that transmitted during that period; and (c) election survey expenses in relation to election surveys that are conducted during that period.",
+        "s. 350(4.1)": "In the case of a general election that is not held on a day set in accordance with subsection 56.1(2) or section 56.2, or of a by-election, a third party is deemed not to have incurred a partisan activity expense, an election advertising expense or an election survey expense if, on the issue of the writ or writs, it is not able to cancel the activity, the transmission of the advertising message or the survey, as the case may be, that the expense is in relation to."
+      },
+      "interpretive_claims": [
+        "Section 350(1) caps third-party expenses during a general election period at $350,000.",
+        "Section 350(4.1) provides a deemed non-incurrence exception for certain expenses in snap general elections or by-elections if the third party cannot cancel the underlying activity upon the issue of the writs."
+      ],
+      "scenario": "The 'Clean Water Coalition', a registered third party, incurred $320,000 in election advertising expenses prior to the dropping of the writ for a federal general election. On the day the writ was issued, the Coalition had an ongoing, non-cancellable billboard contract worth $50,000 that continued to transmit advertising messages during the election period. The general election was called by the Governor General outside of the fixed election date schedule under subsection 56.1(2). The Commissioner of Canada Elections reviews whether the Coalition breached the $350,000 expense limit under section 350(1).",
+      "question": "The 'Clean Water Coalition', a registered third party, incurred $320,000 in election advertising expenses prior to the dropping of the writ for a federal general election. On the day the writ was issued, the Coalition had an ongoing, non-cancellable billboard contract worth $50,000 that continued to transmit advertising messages during the election period. The general election was called by the Governor General outside of the fixed election date schedule under subsection 56.1(2). The Commissioner of Canada Elections reviews whether the Coalition breached the $350,000 expense limit under section 350(1). What critical factual detail regarding the contract and the nature of the general election is missing from the scenario to conclusively determine whether the $50,000 is deemed not to be an expense under subsection 350(4.1), and why does this omission prevent a definitive legal conclusion?"
+    },
+    {
+      "id": "APP-01",
+      "provisions_tested": [
+        "s. 63(1)",
+        "s. 70(2)"
+      ],
+      "provision_quotes": {
+        "s. 63(1)": "When, as of 2:00 p.m. on the 19th day before polling day, the returning officer has confirmed a nomination for only one candidate, the returning officer shall (a) without delay declare the candidate elected by endorsing the return of the writ in the prescribed form on the back of the writ and returning it to the Chief Electoral Officer; and (b) within 48 hours after the return of the writ, send a certified copy of it to the elected candidate.",
+        "s. 70(2)": "No nomination may be received from any person who enters the office of the returning officer after 2:00 p.m. on the closing day for nominations."
+      },
+      "interpretive_claims": [
+        "A returning officer must declare a candidate elected by acclamation at 2:00 p.m. on the 19th day before polling day if only one nomination has been confirmed at that time.",
+        "The closing day for nominations is Monday, the 21st day before polling day.",
+        "Nominations cannot be received from persons entering the returning officer's office after 2:00 p.m. on the closing day for nominations."
+      ],
+      "scenario": "In Electoral District Z, the closing day for nominations is set for Monday, October 2nd (the 21st day before polling day). At 1:45 p.m. on October 2nd, Candidate A is the only prospective candidate whose nomination has been formally confirmed by the returning officer. At 1:55 p.m., a second prospective candidate, Candidate B, enters the returning officer's office with all required paperwork, but due to administrative delays inside the office, Candidate B's nomination paper is not fully processed and verified until 2:10 p.m. The returning officer must determine whether to hold an election or declare Candidate A elected by acclamation.",
+      "question": "In Electoral District Z, the closing day for nominations is set for Monday, October 2nd (the 21st day before polling day). At 1:45 p.m. on October 2nd, Candidate A is the only prospective candidate whose nomination has been formally confirmed by the returning officer. At 1:55 p.m., a second prospective candidate, Candidate B, enters the returning officer's office with all required paperwork, but due to administrative delays inside the office, Candidate B's nomination paper is not fully processed and verified until 2:10 p.m. The returning officer must determine whether to hold an election or declare Candidate A elected by acclamation. What is the correct legal outcome under the Canada Elections Act, and what is the precise statutory reasoning chain?"
+    },
+    {
+      "id": "APP-02",
+      "provisions_tested": [
+        "s. 132(1)",
+        "s. 133(1)",
+        "s. 133(2)"
+      ],
+      "provision_quotes": {
+        "s. 132(1)": "Every employee who is an elector is entitled, during voting hours on polling day, to have three consecutive hours for the purpose of casting his or her vote and, if his or her hours of work do not allow for those three consecutive hours, his or her employer shall allow the time for voting that is necessary to provide those three consecutive hours.",
+        "s. 133(1)": "No employer may make a deduction from the pay of an employee, or impose a penalty, for the time that the employer shall allow for voting under subsection 132(1).",
+        "s. 133(2)": "An employer who pays an employee less than the amount that the employee would have earned on polling day, had the employee continued to work during the time referred to in subsection 132(2) that the employer allowed for voting, is deemed to have made a deduction from the pay of the employee, regardless of the basis on which the employee is paid."
+      },
+      "interpretive_claims": [
+        "Employees who are electors are entitled to three consecutive hours during voting hours on polling day to cast their vote.",
+        "Employers must allow necessary time off if an employee's work hours do not naturally provide those three consecutive hours.",
+        "Employers are prohibited from deducting pay or imposing a penalty for the time allowed for voting, and paying less than what would have been earned during that time is legally deemed a wage deduction."
+      ],
+      "scenario": "Electoral District Y is in the Eastern time zone, meaning voting hours are 9:30 a.m. to 9:30 p.m. Employee Mark works a fixed shift from 8:00 a.m. to 4:00 p.m. on polling day and is paid $20 per hour. Because Mark's work hours do not afford him three consecutive hours off while polls are open (since polls open at 9:30 a.m., he only has from 9:30 a.m. to 4:00 p.m., equaling 6.5 hours, but his employer decides to let him arrive late and leave early such that he is given time off from 9:30 a.m. to 12:30 p.m. to vote). Consequently, Mark works only 5 hours on polling day instead of 8 hours, and his employer deducts $60 (3 hours * $20) from his daily wages.",
+      "question": "Electoral District Y is in the Eastern time zone, meaning voting hours are 9:30 a.m. to 9:30 p.m. Employee Mark works a fixed shift from 8:00 a.m. to 4:00 p.m. on polling day and is paid $20 per hour. Because Mark's work hours do not afford him three consecutive hours off while polls are open (since polls open at 9:30 a.m., he only has from 9:30 a.m. to 4:00 p.m., equaling 6.5 hours, but his employer decides to let him arrive late and leave early such that he is given time off from 9:30 a.m. to 12:30 p.m. to vote). Consequently, Mark works only 5 hours on polling day instead of 8 hours, and his employer deducts $60 (3 hours * $20) from his daily wages. Did the employer violate the Canada Elections Act? Set out the outcome and the supporting statutory reasoning."
+    }
+  ],
+  "generation_summary": {
+    "adversarial_generated": 2,
+    "adversarial_requested": 2,
+    "uncertainty_generated": 2,
+    "uncertainty_requested": 2,
+    "applied_generated": 2,
+    "applied_requested": 2
+  }
+}

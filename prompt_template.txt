@@ -1,0 +1,74 @@
+You are a Canadian legal question-writer. Given the full text of a Canadian legislative act, generate legal reasoning questions grounded strictly in it.
+
+INPUT
+Act name: {{ACT_NAME}}
+Jurisdiction: {{JURISDICTION}}
+Act text:
+"""
+{{ACT_TEXT}}
+"""
+
+RULES
+- Answerable using ONLY the provided act text plus general legal reasoning, no invented facts, sections, or definitions. Cite sections accurately.
+- Scenarios: realistic, specific (named parties, dates, facts), within the act's actual subject matter.
+- Vary difficulty and provisions tested; don't cluster on the same section.
+- Plain, professional legal English (law student / junior associate level), unless quoting statutes directly.
+- `provision_quotes` must be copied character-for-character from ACT_TEXT — no paraphrase, no ellipses. Every entry in `provisions_tested` must have a matching quote.
+- `interpretive_claims` must each be a single, standalone factual claim about what the act says, verifiable from ACT_TEXT alone.
+- {{NUM_ADVERSARIAL}}, {{NUM_UNCERTAINTY}}, {{NUM_APPLIED}} are maximums, not required counts. Generate fewer for a given type only if the act does not support that many *distinct, non-redundant* items of that type (no reused scenario, no near-duplicate provision test). Do not pad with weak or repetitive questions to hit the count.
+- Output ONLY valid JSON per the schema below.
+
+SKIP CONDITIONS
+- Do NOT generate questions if any of the following apply. Instead output only:
+  {"skip_reason": "<one of the labels below>"}
+
+1. insufficient_text: ACT_TEXT is too short or purely administrative (title, definitions, commencement only) to support substantive questions.
+2. external_dependence: operative provisions depend so heavily on instruments not provided (regulations, schedules, other statutes) that no question type could be answered from ACT_TEXT alone. Mere external references are fine — that is valid UNCERTAINTY material.
+3. repealed_or_spent: ACT_TEXT indicates the act is repealed or expired
+4. amending_only: the act solely amends other statutes and cannot be understood without them.
+5. corrupted_text: ACT_TEXT is garbled, truncated mid-provision, or not actually legislation.
+
+- If none apply, you must generate the full set of questions.
+
+QUESTION TYPES
+
+1. ADVERSARIAL ({{NUM_ADVERSARIAL}}) — tests persuasive, position-committed argument. Give a scenario, assign a side (sometimes the stronger reading, sometimes the weaker one, so the model must build the best available case, not just state the obvious answer), require reliance on specific provisions. 
+Template: "[Scenario]. You represent [party]. Argue that [claim], relying on {{ACT_NAME}}. Address the strongest counterargument."
+
+2. UNCERTAINTY ({{NUM_UNCERTAINTY}}) — tests calibration. Give a scenario deliberately missing a fact the act needs to resolve it (e.g. which definition applies, whether a deadline/threshold/exemption precondition is met). Ask what can be concluded, what's missing, and require the model not assert a conclusion it can't support.
+
+3. APPLIED REASONING ({{NUM_APPLIED}}) — tests reaching the single correct answer under complete facts, often synthesizing 2+ provisions (rule + exception, definition + operative clause). Ask for the outcome plus the reasoning chain.
+
+OUTPUT SCHEMA
+{
+  "act_name": "act name given in the prompt",
+  "questions": [
+    {
+      "id": "ADV-01 / UNC-01 / APP-01",
+      "provisions_tested": ["s. X", "s. Y(2)(a)"],
+      "provision_quotes": {
+        "s. X": "verbatim text of s. X as it appears in the act",
+        "s. Y(2)(a)": "verbatim text of s. Y(2)(a)"
+      },
+      "interpretive_claims": [
+        "atomic claim the question relies on, e.g. 's. X requires notice within 30 days'",
+        "one claim per entry, each verifiable as true/false against the act text"
+      ],
+      "scenario": "<fictional facts only: named parties, dates, events. No task or question included.>",
+      "question": "full standalone text, scenario included"
+    }
+  ],
+  "generation_summary": {
+    "adversarial_generated": 0,
+    "adversarial_requested": 0,
+    "uncertainty_generated": 0,
+    "uncertainty_requested": 0,
+    "applied_generated": 0,
+    "applied_requested": 0
+  }
+}
+
+Include a "<type>_shortfall_reason" key in generation_summary (e.g. "uncertainty_shortfall_reason") only for types where generated < requested, explaining why no further distinct, non-redundant items could be produced.
+
+No two questions in the same type reuse a scenario or test the same narrow provision identically.
+
